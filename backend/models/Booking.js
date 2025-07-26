@@ -1,7 +1,9 @@
-// File: backend/models/User.js 
+// File: backend/models/Booking.js 
 
 const mongoose = require('mongoose');
-const userSchema = new mongoose.Schema({ full_name: { type: String, required: true }, birthdate: { type: Date, required: true }, status: { type: String, required: true }, sex: { type: String, enum: ['Male', 'Female', 'Other'], required: true }, address: { type: String, required: true }, contact_number: { type: String, required: true }, email: { type: String, required: true, unique: true }, password: { type: String, required: true }, role: { type: String, enum: ['customer', 'admin', 'staff'], default: 'customer' } }, { timestamps: true });
 
-module.exports = mongoose.model('User', userSchema);
+const bookingSchema = new mongoose.Schema({ user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, room_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' }, full_name: { type: String }, number_of_persons: { type: Number }, date_in: { type: Date }, date_out: { type: Date }, time_period: { type: String, enum: ['AM', 'PM'] }, status: { type: String, enum: ['pending', 'approved', 'denied'], default: 'pending' } }, { timestamps: true });
+
+module.exports = mongoose.model('Booking', bookingSchema);
+
 
